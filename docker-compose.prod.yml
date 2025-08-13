@@ -10,3 +10,18 @@ services:
       - "9443:443"
     environment:
       - NODE_ENV=production
+      - API_HOST=counter-api-prod
+    depends_on:
+      - counter-api-prod
+
+  counter-api-prod:
+    build:
+      context: ./src/counter-api
+      dockerfile: Dockerfile
+    container_name: counter-api-prod
+    restart: always
+    volumes:
+      - counter-data:/data
+
+volumes:
+  counter-data:
